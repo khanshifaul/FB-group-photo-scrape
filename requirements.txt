@@ -1,0 +1,5 @@
+-i https://pypi.org/simple
+chromedriver-binary==80.0.3987.16.0
+progress==1.5
+selenium==4.0.0a3
+urllib3==1.25.7

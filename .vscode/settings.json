@@ -1,0 +1,14 @@
+{
+    "python.pythonPath": "/home/bad357/.local/share/virtualenvs/FB-group-photo-scrape-0MkM8z7f/bin/python",
+    "python.formatting.provider": "black",
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./test",
+        "-p",
+        "test_*.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.unittestEnabled": true
+}
