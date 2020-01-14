@@ -6,13 +6,16 @@ from selenium.webdriver.firefox.webdriver import Options
 from selenium.webdriver.firefox.webdriver import Service
 from selenium.webdriver.firefox.webdriver import FirefoxBinary
 from selenium.webdriver.firefox.webdriver import DesiredCapabilities
-from progress.bar import FillingSquaresBar
-
+from selenium.webdriver.firefox.webdriver import FirefoxProfile
 
 class LoginTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        # # For WSL Linux
         driver_path = str(os.path.abspath("../../../../mnt/c/") + "/geckodriver.exe")
+        # # For Windows
+        # driver_path = "driver/geckodriver.exe"
+        # # For Linux
         # driver_path = "driver/geckodriver"
         firefox_service = Service(driver_path)
         firefox_options = Options()
@@ -30,7 +33,7 @@ class LoginTest(unittest.TestCase):
         cls.driver.set_window_rect(x=0, y=920, width=775, height=420)
 
     def test_login(self):
-        self.driver.get("http://facebook.com")
+        self.driver.get("http://facebook.com/login")
         self.driver.find_element(By.ID, "email").send_keys("khanshifaul@gmail.com")
         self.driver.find_element(By.ID, "pass").send_keys("comexblue760")
         self.driver.find_element(By.ID, "loginbutton").click()

@@ -4,11 +4,14 @@
     "python.testing.unittestArgs": [
         "-v",
         "-s",
-        "./test",
+        "./Tests",
         "-p",
         "test_*.py"
     ],
     "python.testing.pytestEnabled": false,
     "python.testing.nosetestsEnabled": false,
-    "python.testing.unittestEnabled": true
+    "python.testing.unittestEnabled": true,
+    "python.testing.pytestArgs": [
+        "Tests"
+    ]
 }
