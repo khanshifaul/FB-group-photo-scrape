@@ -1,4 +1,4 @@
-import os, pickle, unittest
+import os, pickle, unittest, time
 from selenium import webdriver
 from selenium.webdriver.firefox.webdriver import Options
 from selenium.webdriver.firefox.webdriver import Service
@@ -7,6 +7,9 @@ from selenium.webdriver.firefox.webdriver import DesiredCapabilities
 from selenium.common.exceptions import *
 
 from Pages.loginPage import LoginPage
+from Pages.loginCheckpointPage import CheckpointPage
+from Pages.groupHomePage import HomePage
+from Pages.groupPhotoPage import PhotoPage
 
 
 class LoginTest(unittest.TestCase):
@@ -25,7 +28,7 @@ class LoginTest(unittest.TestCase):
             "browser.download.manager.showWhenStarting", False
         )
         firefox_profile.set_preference("browser.download.dir", "/Images")
-        firefox_capabilities = DesiredCapabilities.FIREFOX.copy()
+        firefox_capabilities = DesiredCapabilities.FIREFOX
         firefox_capabilities["marionette"] = False
         cls.driver = webdriver.Firefox(
             service=firefox_service,
@@ -41,23 +44,43 @@ class LoginTest(unittest.TestCase):
     def test_Login(self):
         login = LoginPage(self.driver)
         login.load()
-        if driver.title == "Log in to Facebook | Facebook":
-            login.enter_email("01719789248")
-            login.enter_password("01719789248")
+        if self.driver.title == "Log in to Facebook | Facebook":
+            login.enter_email("khanshifaul@gmail.com")
+            login.enter_password("comexblue760")
             login.press_login()
             login.show_error()
         else:
             pass
 
     def test_LoginCheckPoint(self):
-        if "https://web.facebook.com/checkpoint/" in driver.current_url:
-            driver.find_element(By.ID, "approvals_code").send_keys("70967135")
-            driver.find_element(By.ID, "checkpointSubmitButton").click()
+        checkpoint = CheckpointPage(self.driver)
+        if "https://web.facebook.com/checkpoint/" in self.driver.current_url:
+            checkpoint.enter_aprovalcode("21810277")
+            checkpoint.press_continue()
+        time.sleep(10)
+        if (
+            "https://web.facebook.com/checkpoint/" in self.driver.current_url
+            and self.driver.find_element(By.TAG_NAME, "strong").get_text()
+            == "Remember Browser"
+        ):
+            checkpoint.press_continue()
 
+    def test_xGroupHomePage(self):
+        homepage = HomePage(self.driver)
+        time.sleep(30)
+        homepage.search()
+
+    def test_xGroupPhotoPage(self):
+        photopage = PhotoPage(self.driver)
+        photopage.load()
+        photopage.openfPhoto()
+        # for photopage.img():
+        photopage.srcImg()
+        photopage.nphoto()
 
     @classmethod
     def tearDownClass(cls):
-        pickle.dump(driver.get_cookies(), open(".Cookies/cookies.pkl", "wb"))
+        pickle.dump(cls.driver.get_cookies(), open("Cookies/cookies.pkl", "wb"))
         # cls.driver.close()
         # cls.driver.quit()
         print("Test Completed")

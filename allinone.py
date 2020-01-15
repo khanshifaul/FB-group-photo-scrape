@@ -59,7 +59,7 @@ if driver.title == "Facebook – log in or sign up":
 else:
     driver.close()
     driver.get("https://web.facebook.com/groups/BOBO.BD/"+"photos")
-    driver.find_element(By.)
+    driver.find_element(By.XPATH, "//img[@class='spotlight']").get_attribute("src")
 
 driver.save_screenshot("screenshot/shot.png")
 # driver.quit()
